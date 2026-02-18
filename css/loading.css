@@ -1,0 +1,320 @@
+/* Loading Animation Styles */
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.loading-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading-content {
+  text-align: center;
+  position: relative;
+}
+
+/* Hexagonal Spinner */
+.loading-spinner {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  margin: 0 auto 2rem;
+}
+
+.hexagon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+}
+
+.hexagon-outer {
+  background: linear-gradient(135deg, var(--primary), transparent);
+  animation: rotate 3s linear infinite;
+}
+
+.hexagon-middle {
+  background: linear-gradient(135deg, transparent, var(--accent-foreground));
+  animation: rotate 2s linear infinite reverse;
+  transform: scale(0.7);
+}
+
+.hexagon-inner {
+  background: var(--primary);
+  animation: pulse 1.5s ease-in-out infinite;
+  transform: scale(0.4);
+  box-shadow: 0 0 30px var(--primary);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(0.4);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.5);
+  }
+}
+
+/* Loading Text */
+.loading-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.loading-text::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+    content: '';
+  }
+  40% {
+    content: '.';
+  }
+  60% {
+    content: '..';
+  }
+  80%, 100% {
+    content: '...';
+  }
+}
+
+/* Progress Bar */
+.loading-progress {
+  width: 300px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 0 auto 1rem;
+  position: relative;
+}
+
+.loading-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent-foreground));
+  width: 0%;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px var(--primary);
+  position: relative;
+}
+
+.loading-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Loading Status */
+.loading-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-top: 0.5rem;
+}
+
+/* Background Grid */
+.loading-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
+  animation: gridMove 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* Scanline Effect */
+.loading-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 255, 255, 0.03) 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100vh;
+  }
+}
+
+/* Glitch Effect */
+.loading-text.glitch {
+  animation: glitchText 0.3s ease-in-out;
+}
+
+@keyframes glitchText {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(2px, -2px);
+  }
+  60% {
+    transform: translate(-2px, -2px);
+  }
+  80% {
+    transform: translate(2px, 2px);
+  }
+}
+
+/* Data Loading Stages */
+.loading-stages {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin-top: 2rem;
+  text-align: left;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loading-stage {
+  padding: 0.5rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+.loading-stage.active {
+  opacity: 1;
+  border-left-color: var(--primary);
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.loading-stage.complete {
+  opacity: 0.6;
+  border-left-color: rgba(16, 185, 129, 0.5);
+}
+
+.loading-stage-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.loading-stage-icon.pending {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.loading-stage-icon.active {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 1s infinite;
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.loading-stage-icon.complete svg {
+  width: 16px;
+  height: 16px;
+  stroke: rgb(16, 185, 129);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .loading-spinner {
+    width: 80px;
+    height: 80px;
+  }
+
+  .loading-text {
+    font-size: 1.2rem;
+  }
+
+  .loading-progress {
+    width: 250px;
+  }
+
+  .loading-stages {
+    max-width: 90%;
+    font-size: 0.7rem;
+  }
+}
