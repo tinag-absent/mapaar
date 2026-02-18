@@ -1,0 +1,1040 @@
+{
+  "modules": [
+    {
+      "id": "mod-001",
+      "code": "M-001-α",
+      "name": "空間安定化フィールド",
+      "classification": "safe",
+      "description": "次元の歪みを抑制し、空間の安定性を高めるための基本モジュール。",
+      "range": "半径20m",
+      "duration": "15分",
+      "energy": "中",
+      "developer": "工作部門",
+      "details": "海蝕現象の初期段階で使用される標準的な収束装置。次元境界の揺らぎを検知し、自動的に安定化フィールドを展開する。",
+      "warning": "連続使用は30分以内に制限。過度な使用は装置の劣化を招く。"
+    },
+    {
+      "id": "mod-002",
+      "code": "M-002-β",
+      "name": "次元境界封鎖",
+      "classification": "caution",
+      "description": "階宙次元への通路を一時的に封鎖し、海蝕実体の侵入を防ぐ。",
+      "range": "半径50m",
+      "duration": "30分",
+      "energy": "高",
+      "developer": "工作部門",
+      "details": "港湾部門との共同開発により実現した高度な封鎖システム。境界ゲートを強制的に閉鎖することで、未認可の実体侵入を防ぐ。",
+      "warning": "使用中は機関員の次元移動も不可能になる。緊急時以外の使用を禁止。"
+    },
+    {
+      "id": "mod-003",
+      "code": "M-003-γ",
+      "name": "実体無力化パルス",
+      "classification": "danger",
+      "description": "海蝕実体の存在基盤を破壊する高出力パルス波を発生させる。",
+      "range": "半径10m",
+      "duration": "瞬間",
+      "energy": "超高",
+      "developer": "工作部門",
+      "details": "残滓から抽出した高純度エネルギーを使用。対象の次元座標を強制的にずらすことで実体を消滅させる。",
+      "warning": "周辺の電子機器に深刻なダメージを与える。使用時は半径100m以内の避難が必須。"
+    },
+    {
+      "id": "mod-004",
+      "code": "M-004-δ",
+      "name": "時空間歪曲装置",
+      "classification": "classified",
+      "description": "局所的な時空間の流れを操作し、海蝕現象の進行を遅延させる。",
+      "range": "半径5m",
+      "duration": "5分（体感時間: 1時間）",
+      "energy": "極高",
+      "developer": "工作部門 - 機密プロジェクト",
+      "details": "[データ削除済] 理論上、時間の流れを最大12倍まで減速可能。実験段階のため実戦配備は限定的。",
+      "warning": "[機密情報] 使用者は重度の時間感覚喪失症を経験する可能性あり。LEVEL 4以上の許可必須。"
+    },
+    {
+      "id": "mod-005",
+      "code": "M-005-ε",
+      "name": "残滓回収システム",
+      "classification": "safe",
+      "description": "海蝕現象収束後に残る残滓を安全に回収・保管するための装置。",
+      "range": "半径15m",
+      "duration": "10分",
+      "energy": "低",
+      "developer": "工作部門",
+      "details": "特殊な磁場を形成し、残滓を引き寄せて安定化させる。回収された残滓は研究用途に使用される。",
+      "warning": "残滓の種類によっては予期しない反応を示す可能性あり。防護装備の着用を推奨。"
+    },
+    {
+      "id": "mod-006",
+      "code": "M-006-ζ",
+      "name": "認識阻害フィールド",
+      "classification": "caution",
+      "description": "一般市民の認識から海蝕現象を隠蔽するための精神干渉装置。",
+      "range": "半径100m",
+      "duration": "1時間",
+      "energy": "中",
+      "developer": "外事部門・工作部門共同",
+      "details": "対象の視覚・聴覚・記憶に微細な干渉を行い、海蝕現象を「ありふれた光景」として認識させる。",
+      "warning": "機関員自身も影響を受ける可能性あり。使用時は必ず除外タグを装着すること。"
+    },
+    {
+      "id": "mod-007",
+      "code": "M-007-η",
+      "name": "次元共鳴増幅器",
+      "classification": "danger",
+      "description": "残滓のエネルギーを増幅し、より強力な収束効果を発揮する。",
+      "range": "半径30m",
+      "duration": "20分",
+      "energy": "超高",
+      "developer": "工作部門",
+      "details": "残滓の不安定な性質を利用し、通常の3倍の出力を実現。ただし、制御を失うリスクも3倍。",
+      "warning": "暴走時は周辺一帯が海蝕化する危険性あり。LEVEL 3以上の機関員のみ使用可。"
+    },
+    {
+      "id": "mod-008",
+      "code": "M-008-θ",
+      "name": "生体保護シールド",
+      "classification": "safe",
+      "description": "海蝕現象による生体への直接的な影響を軽減する防護フィールド。",
+      "range": "個人",
+      "duration": "1時間",
+      "energy": "低",
+      "developer": "支援部門",
+      "details": "携帯型の小型モジュール。次元の歪みから生体組織を保護し、精神的・肉体的ダメージを最小化する。",
+      "warning": "完全な防護ではない。長時間の暴露は避けること。"
+    },
+    {
+      "id": "mod-009",
+      "code": "M-009-ι",
+      "name": "次元探査ドローン",
+      "classification": "safe",
+      "description": "階宙次元内部を探査し、リアルタイムでデータを送信する自律型ドローン。",
+      "range": "次元間移動可能",
+      "duration": "6時間（バッテリー寿命）",
+      "energy": "中",
+      "developer": "工作部門・支援部門共同",
+      "details": "小型化された次元移動装置を搭載。危険な領域の事前調査に使用される。映像・音声・次元座標を記録可能。",
+      "warning": "階宙次元内での通信は不安定。ドローン喪失のリスクあり。"
+    },
+    {
+      "id": "mod-010",
+      "code": "M-010-κ",
+      "name": "記憶固定装置",
+      "classification": "caution",
+      "description": "認識阻害や記憶改変の影響を受けないよう、記憶を固定する装置。",
+      "range": "個人",
+      "duration": "24時間",
+      "energy": "低",
+      "developer": "外事部門",
+      "details": "脳内の記憶回路に微弱な電気信号を送り、記憶の書き換えを防止する。機密任務で使用。",
+      "warning": "長期使用は頭痛や集中力低下を引き起こす。48時間以上の連続使用は禁止。"
+    },
+    {
+      "id": "mod-011",
+      "code": "M-011-λ",
+      "name": "量子通信機",
+      "classification": "safe",
+      "description": "次元の壁を越えて通信できる量子もつれを利用した通信機。",
+      "range": "無制限",
+      "duration": "常時稼働",
+      "energy": "低",
+      "developer": "工作部門",
+      "details": "階宙次元内でも使用可能な唯一の通信手段。ペア端末間で瞬時に情報を送受信できる。",
+      "warning": "量子もつれは脆弱。衝撃を与えると通信不能になる可能性あり。"
+    },
+    {
+      "id": "mod-012",
+      "code": "M-012-μ",
+      "name": "次元座標固定杭",
+      "classification": "safe",
+      "description": "特定の次元座標を固定し、安定したゲートポイントを作成する。",
+      "range": "設置地点",
+      "duration": "永続（保守必要）",
+      "energy": "初期高・維持低",
+      "developer": "港湾部門",
+      "details": "次元間の「アンカー」として機能。複数の杭を設置することで、安定した移動ルートを確立できる。",
+      "warning": "座標のずれは重大事故に繋がる。月1回の校正が必須。"
+    },
+    {
+      "id": "mod-013",
+      "code": "M-013-ν",
+      "name": "実体拘束網",
+      "classification": "caution",
+      "description": "海蝕実体を物理的に拘束するエネルギー網。",
+      "range": "半径25m",
+      "duration": "10分",
+      "energy": "高",
+      "developer": "収束部門",
+      "details": "次元エネルギーで編まれた網状フィールド。実体の移動を制限し、収束作業を容易にする。",
+      "warning": "高知性実体は網を破る可能性あり。併用モジュールの準備を推奨。"
+    },
+    {
+      "id": "mod-014",
+      "code": "M-014-ξ",
+      "name": "緊急次元退避装置",
+      "classification": "safe",
+      "description": "危機的状況で使用者を安全な次元へ即座に転送する。",
+      "range": "個人",
+      "duration": "一回限り",
+      "energy": "極高",
+      "developer": "支援部門",
+      "details": "全機関員に配布される緊急脱出装置。起動すると最寄りの安全な次元座標へ自動転送される。",
+      "warning": "使用後は装置が破損し再使用不可。本部への帰還は別途支援が必要。"
+    },
+    {
+      "id": "mod-015",
+      "code": "M-015-ο",
+      "name": "残滓エネルギー変換炉",
+      "classification": "danger",
+      "description": "回収した残滓を実用エネルギーに変換する実験的装置。",
+      "range": "施設固定型",
+      "duration": "連続稼働",
+      "energy": "自己発電",
+      "developer": "工作部門 - 研究チーム",
+      "details": "残滓の不安定なエネルギーを電力に変換。理論上、無限のエネルギー源となり得る。",
+      "warning": "暴走時は次元崩壊を引き起こす。厳重な監視下でのみ稼働許可。"
+    },
+    {
+      "id": "mod-016",
+      "code": "M-016-π",
+      "name": "生体スキャナー",
+      "classification": "safe",
+      "description": "対象の次元共鳴パターンを解析し、実体・人間・不根を判別する。",
+      "range": "半径30m",
+      "duration": "即座",
+      "energy": "低",
+      "developer": "支援部門",
+      "details": "各存在が持つ固有の次元パターンを検出。擬態実体の識別に有効。",
+      "warning": "高度な擬態には無効な場合あり。過信は禁物。"
+    },
+    {
+      "id": "mod-017",
+      "code": "M-017-ρ",
+      "name": "時間記録装置",
+      "classification": "caution",
+      "description": "時間遅延帯などの影響下でも正確な時刻を記録し続ける。",
+      "range": "個人",
+      "duration": "永続",
+      "energy": "極低",
+      "developer": "工作部門",
+      "details": "原子時計を基準とした超高精度タイマー。時間異常の影響を受けない唯一の計時装置。",
+      "warning": "物理的破損に弱い。取り扱いは慎重に。"
+    },
+    {
+      "id": "mod-018",
+      "code": "M-018-σ",
+      "name": "次元障壁強化剤",
+      "classification": "safe",
+      "description": "既存の次元境界を強化し、海蝕現象の発生を予防する。",
+      "range": "半径100m",
+      "duration": "72時間",
+      "energy": "中",
+      "developer": "収束部門",
+      "details": "境界の「薄い」場所に散布することで、海蝕現象の発生率を80%削減。予防措置として有効。",
+      "warning": "過度の散布は次元の硬化を招き、正規の次元移動も困難になる。"
+    },
+    {
+      "id": "mod-019",
+      "code": "M-019-τ",
+      "name": "概念固定アンカー",
+      "classification": "classified",
+      "description": "[機密] 抽象概念を物理的に固定し、概念捕食者から保護する。",
+      "range": "半径50m",
+      "duration": "1時間",
+      "energy": "極高",
+      "developer": "工作部門 - 特殊プロジェクト",
+      "details": "[LEVEL 5] 「存在」「記憶」「認識」といった概念を実体化させ、捕食から守る。理論的には有効だが実績は限定的。",
+      "warning": "[最高機密] 副作用として使用者の自我が不安定になる。精神鑑定後のみ使用許可。"
+    },
+    {
+      "id": "mod-020",
+      "code": "M-020-υ",
+      "name": "多次元投影装置",
+      "classification": "danger",
+      "description": "使用者の意識を複数の次元に同時投影し、広範囲の監視を可能にする。",
+      "range": "意識投影: 無制限",
+      "duration": "30分",
+      "energy": "極高",
+      "developer": "外事部門",
+      "details": "最大5つの次元に同時に意識を投影可能。偵察任務で使用されるが、精神的負荷は極めて高い。",
+      "warning": "投影中の本体は無防備。必ず保護下で使用すること。投影時間超過は人格崩壊のリスクあり。"
+    }
+  ],
+  "entities": [
+    {
+      "id": "ent-001",
+      "code": "E-001",
+      "name": "漂流者",
+      "classification": "safe",
+      "description": "階宙次元から迷い込んだ知性体。敵対性は低い。",
+      "threat": "低",
+      "intelligence": "中",
+      "origin": "階宙次元・不明領域",
+      "appearance": "半透明の人型。顔の特徴は不明瞭で、常に漂うように移動する。",
+      "behavior": "目的もなく徘徊する。人間を発見すると興味を示すが、攻撃はしない。",
+      "containment": "対話による誘導が可能。元の次元への帰還を支援することで自主的に退去する。"
+    },
+    {
+      "id": "ent-002",
+      "code": "E-002",
+      "name": "波喰い",
+      "classification": "danger",
+      "description": "海蝕現象そのものを捕食する異常存在。",
+      "threat": "高",
+      "intelligence": "低",
+      "origin": "階宙次元・深淵領域",
+      "appearance": "黒い霧状の集合体。中心に無数の目のような発光体を持つ。",
+      "behavior": "海蝕現象が発生すると出現し、その場のエネルギーを吸収する。満腹になるまで移動しない。",
+      "containment": "実体無力化パルスが有効。ただし複数体が同時出現することが多く、制圧は困難。"
+    },
+    {
+      "id": "ent-003",
+      "code": "E-003",
+      "name": "鏡面侵食体",
+      "classification": "caution",
+      "description": "対象の姿を模倣し、その存在を侵食する寄生型実体。",
+      "threat": "中",
+      "intelligence": "中",
+      "origin": "階宙次元・境界領域",
+      "appearance": "初期は無形。接触した生物の外見を完全にコピーする。",
+      "behavior": "宿主の記憶と人格を徐々に吸収し、最終的に入れ替わる。本物との区別は困難。",
+      "containment": "次元共鳴パターンの微細な違いで識別可能。発見次第、即座に隔離・無力化が必要。"
+    },
+    {
+      "id": "ent-004",
+      "code": "E-004",
+      "name": "時間遅延帯",
+      "classification": "caution",
+      "description": "周囲の時間流を著しく遅延させる現象型実体。",
+      "threat": "中",
+      "intelligence": "なし",
+      "origin": "階宙次元・時層",
+      "appearance": "淡い青白い光の球体。内部では時間が通常の1/100の速度で流れる。",
+      "behavior": "移動せず、その場に留まり続ける。接近した物体は自動的に取り込まれる。",
+      "containment": "時空間歪曲装置で相殺可能。ただし高度な技術と経験が必要。"
+    },
+    {
+      "id": "ent-005",
+      "code": "E-005",
+      "name": "概念捕食者",
+      "classification": "classified",
+      "description": "[機密] 抽象概念そのものを捕食する高次元存在。",
+      "threat": "極高",
+      "intelligence": "極高",
+      "origin": "[削除済]",
+      "appearance": "[アクセス権限不足]",
+      "behavior": "[機密情報] 「忘却」「消失」「不在」といった概念を実体化させ、それを糧とする。",
+      "containment": "[LEVEL 5以上] 現在、完全な収束手段は確立されていない。接触を避けることが最優先。"
+    },
+    {
+      "id": "ent-006",
+      "code": "E-006",
+      "name": "不根の行商人",
+      "classification": "safe",
+      "description": "次元間を移動する商人。友好的だが、取引には注意が必要。",
+      "threat": "極低",
+      "intelligence": "高",
+      "origin": "不根（次元間移動種族）",
+      "appearance": "人間に似た姿だが、目が3つある。常に大きな荷物を背負っている。",
+      "behavior": "「取引」を好む。物品だけでなく、記憶や感情も商品として扱う。",
+      "containment": "友好的であれば収束不要。ただし不当な取引には外事部門が介入する。"
+    },
+    {
+      "id": "ent-007",
+      "code": "E-007",
+      "name": "影泳ぎ",
+      "classification": "caution",
+      "description": "影の中を自由に移動する捕食性実体。",
+      "threat": "中",
+      "intelligence": "低",
+      "origin": "階宙次元・暗黒領域",
+      "appearance": "文字通りの影。三次元的な形状を持たず、平面上を滑るように移動。",
+      "behavior": "光源を避け、影の中に潜む。獲物が影に入ると襲撃する。",
+      "containment": "強力な照明で影を消すことで無力化。夜間作業では特に警戒が必要。"
+    },
+    {
+      "id": "ent-008",
+      "code": "E-008",
+      "name": "記憶喰らい",
+      "classification": "danger",
+      "description": "人間の記憶を摂取し、それを糧とする精神寄生体。",
+      "threat": "高",
+      "intelligence": "中",
+      "origin": "階宙次元・精神層",
+      "appearance": "ほぼ透明。精神集中時のみ薄い人型のシルエットとして視認可能。",
+      "behavior": "睡眠中の人間に憑依し、夢を通じて記憶を吸収。被害者は記憶喪失に陥る。",
+      "containment": "記憶固定装置の着用で防御可能。発見は困難だが、生体スキャナーで検出できる。"
+    },
+    {
+      "id": "ent-009",
+      "code": "E-009",
+      "name": "共鳴体",
+      "classification": "safe",
+      "description": "周囲の音を増幅・変調する非敵対的実体。",
+      "threat": "極低",
+      "intelligence": "低",
+      "origin": "階宙次元・音響領域",
+      "appearance": "透明な球体。内部で複雑な幾何学模様が絶えず変化している。",
+      "behavior": "音波に反応し、それを美しいハーモニーに変換する。人間の声に特に反応。",
+      "containment": "無害のため収束不要。ただし機密会話の盗聴リスクあり。"
+    },
+    {
+      "id": "ent-010",
+      "code": "E-010",
+      "name": "空間裂目",
+      "classification": "danger",
+      "description": "空間そのものを引き裂く移動性の亀裂。",
+      "threat": "高",
+      "intelligence": "なし",
+      "origin": "次元境界の損傷",
+      "appearance": "空中を漂う黒い裂け目。周囲の光が歪み、重力異常を引き起こす。",
+      "behavior": "不規則に移動し、接触した物体を別次元へ吸い込む。戻ることはほぼ不可能。",
+      "containment": "空間安定化フィールドと次元境界封鎖の併用が必須。完全な消滅は困難。"
+    },
+    {
+      "id": "ent-011",
+      "code": "E-011",
+      "name": "結晶蜘蛛",
+      "classification": "caution",
+      "description": "次元エネルギーを結晶化し、巣を作る蜘蛛型実体。",
+      "threat": "中",
+      "intelligence": "低",
+      "origin": "階宙次元・鉱物層",
+      "appearance": "透明な結晶でできた蜘蛛。体長は約30cm。脚は8本。",
+      "behavior": "次元の歪みが強い場所に巣を作る。巣は美しいが、触れると次元に引き込まれる。",
+      "containment": "巣の除去には専用の溶解剤が必要。蜘蛛本体は物理攻撃で破壊可能。"
+    },
+    {
+      "id": "ent-012",
+      "code": "E-012",
+      "name": "感情寄生虫",
+      "classification": "safe",
+      "description": "人間の負の感情を吸収して成長する微小実体。",
+      "threat": "極低",
+      "intelligence": "なし",
+      "origin": "階宙次元・感情層",
+      "appearance": "肉眼では見えない。顕微鏡下では半透明の小さな球体。",
+      "behavior": "ストレスや不安を吸収する。結果として宿主の精神状態は改善される。",
+      "containment": "有益な共生関係を築くため、駆除不要。ただし過剰繁殖は精神的無感覚を招く。"
+    },
+    {
+      "id": "ent-013",
+      "code": "E-013",
+      "name": "次元渡りの鳥",
+      "classification": "safe",
+      "description": "次元間を自由に飛行する鳥型実体。",
+      "threat": "なし",
+      "intelligence": "低",
+      "origin": "階宙次元・大気層",
+      "appearance": "虹色の羽根を持つ鳥。尾が長く、飛行時に光の軌跡を残す。",
+      "behavior": "次元境界を自由に往来し、複数の世界で採餌する。人間には無関心。",
+      "containment": "無害のため観察のみ。稀に迷子になった個体を元の次元へ誘導する。"
+    },
+    {
+      "id": "ent-014",
+      "code": "E-014",
+      "name": "真実の瞳",
+      "classification": "caution",
+      "description": "見つめた対象の本質を暴く巨大な眼球型実体。",
+      "threat": "中",
+      "intelligence": "高",
+      "origin": "階宙次元・真理層",
+      "appearance": "直径約2mの巨大な眼球。虹彩は常に変化し、見る者の心を映す。",
+      "behavior": "対象を凝視し、隠された真実や嘘を暴露する。精神的ダメージを与えることも。",
+      "containment": "視線を遮ることで無力化。鏡を使った反射は危険（自己に真実が跳ね返る）。"
+    },
+    {
+      "id": "ent-015",
+      "code": "E-015",
+      "name": "時間の子供",
+      "classification": "classified",
+      "description": "[機密] 時間そのものから生まれた存在。",
+      "threat": "不明",
+      "intelligence": "極高",
+      "origin": "[削除済]",
+      "appearance": "[アクセス権限不足] 報告によれば人間の子供に似た姿。",
+      "behavior": "[機密] 過去・現在・未来を同時に認識し、時系列を無視して行動する。意図は不明。",
+      "containment": "[LEVEL 5] 接触禁止。観測のみ。時空間歪曲装置は効果なし。"
+    },
+    {
+      "id": "ent-016",
+      "code": "E-016",
+      "name": "不根の密輸業者",
+      "classification": "caution",
+      "description": "禁制品を次元間で密輸する不根の犯罪者集団。",
+      "threat": "中",
+      "intelligence": "高",
+      "origin": "不根・犯罪組織",
+      "appearance": "一般的な不根の姿だが、武装していることが多い。",
+      "behavior": "次元間の法の抜け穴を利用して違法取引を行う。機関との衝突も辞さない。",
+      "containment": "外事部門が監視・取締を実施。武力衝突のリスクあり。港湾部門と連携が必須。"
+    },
+    {
+      "id": "ent-017",
+      "code": "E-017",
+      "name": "虚無の使者",
+      "classification": "danger",
+      "description": "存在そのものを消去する力を持つ恐るべき実体。",
+      "threat": "極高",
+      "intelligence": "中",
+      "origin": "階宙次元・虚無領域",
+      "appearance": "人型の輪郭だが、内部は完全な虚無。光さえ吸収する。",
+      "behavior": "接触した物質を存在ごと消去する。目的は不明だが、無差別に破壊を行う。",
+      "containment": "実体無力化パルスと次元境界封鎖の同時使用が必要。極めて危険。"
+    },
+    {
+      "id": "ent-018",
+      "code": "E-018",
+      "name": "夢織り",
+      "classification": "safe",
+      "description": "人々の夢を実体化させる芸術家肌の実体。",
+      "threat": "極低",
+      "intelligence": "高",
+      "origin": "階宙次元・夢想層",
+      "appearance": "人間に近い姿。体は半透明で、内部に星空のような光が見える。",
+      "behavior": "眠る人間の夢を感知し、それを一時的な実体として創造する。芸術作品として扱う。",
+      "containment": "友好的。創作活動を監視する程度で十分。悪夢の実体化には注意が必要。"
+    },
+    {
+      "id": "ent-019",
+      "code": "E-019",
+      "name": "残響獣",
+      "classification": "caution",
+      "description": "過去の出来事の「残響」から生まれる獣型実体。",
+      "threat": "中",
+      "intelligence": "低",
+      "origin": "次元境界・過去層",
+      "appearance": "半透明の獣。形状は出来事によって変化（戦争→狼、事故→蛇など）。",
+      "behavior": "生まれた場所で同じ出来事を繰り返し再現する。攻撃的だが知能は低い。",
+      "containment": "残滓回収システムで吸収可能。または時間経過で自然消滅する。"
+    },
+    {
+      "id": "ent-020",
+      "code": "E-020",
+      "name": "量子幽霊",
+      "classification": "classified",
+      "description": "[機密] 量子レベルで存在する観測不可能な実体。",
+      "threat": "不明",
+      "intelligence": "不明",
+      "origin": "[データ不足]",
+      "appearance": "[観測不可能] 理論上は存在するが視認できない。",
+      "behavior": "[機密] 観測行為そのものが実体の状態を変化させる。シュレーディンガーの猫的存在。",
+      "containment": "[LEVEL 5] 研究中。現状では対処法なし。観測を避けることが唯一の対策。"
+    }
+  ],
+  "missions": [
+    {
+      "id": "MISSION-2026-001",
+      "title": "東京湾次元歪曲事案",
+      "status": "active",
+      "priority": "critical",
+      "location": "東京湾沿岸部",
+      "coordinates": "35.6236°N, 139.7815°E",
+      "startDate": "2026-02-06 08:30",
+      "endDate": null,
+      "assignedDivisions": ["収束部門 第1班", "支援部門"],
+      "entity": "E-002 (波喰い) 複数体確認",
+      "gsi": 12.4,
+      "description": "東京湾沿岸で大規模な次元境界の歪みを検知。複数の波喰いが出現し、付近の海蝕現象を捕食中。",
+      "timeline": [
+        {
+          "time": "2026-02-06 08:30",
+          "event": "異常検知 - 自動警報発令",
+          "type": "alert"
+        },
+        {
+          "time": "2026-02-06 08:45",
+          "event": "収束部門 第1班出動",
+          "type": "deployment"
+        },
+        {
+          "time": "2026-02-06 09:20",
+          "event": "波喰い3体確認",
+          "type": "discovery"
+        },
+        {
+          "time": "2026-02-06 10:00",
+          "event": "M-001-α 空間安定化フィールド展開",
+          "type": "action"
+        },
+        {
+          "time": "2026-02-06 10:30",
+          "event": "M-003-γ 実体無力化パルス使用 - 2体消滅",
+          "type": "action"
+        },
+        {
+          "time": "2026-02-06 11:15",
+          "event": "残り1体追跡中",
+          "type": "ongoing"
+        }
+      ],
+      "modules": ["M-001-α", "M-003-γ", "M-008-θ"],
+      "casualties": 0,
+      "civilianEvacuation": 50,
+      "reports": [
+        {
+          "time": "2026-02-06 09:00",
+          "author": "機関員 K-042-118",
+          "content": "現場到着。GSI値が急上昇しています。視界不良、次元の歪みによる光学異常を確認。"
+        },
+        {
+          "time": "2026-02-06 10:45",
+          "author": "機関員 K-015-203",
+          "content": "実体無力化パルス成功。ただし周辺の電子機器に甚大な被害。復旧に時間を要します。"
+        }
+      ],
+      "notes": "残り1体の波喰いは東京湾深部に逃走。追跡には潜水装備が必要。支援部門にドローン支援を要請済み。",
+      "securityLevel": 2
+    },
+    {
+      "id": "MISSION-2026-002",
+      "title": "渋谷記憶喰らい事案",
+      "status": "completed",
+      "priority": "high",
+      "location": "東京都渋谷区",
+      "coordinates": "35.6617°N, 139.6980°E",
+      "startDate": "2026-01-28 22:15",
+      "endDate": "2026-01-29 04:30",
+      "assignedDivisions": ["収束部門 第2班", "外事部門"],
+      "entity": "E-008 (記憶喰らい) 1体",
+      "gsi": 8.7,
+      "description": "渋谷駅周辺で突発的な集団記憶喪失が発生。調査の結果、記憶喰らいの存在を確認。",
+      "timeline": [
+        {
+          "time": "2026-01-28 22:15",
+          "event": "複数の市民が記憶喪失を訴え119番通報",
+          "type": "alert"
+        },
+        {
+          "time": "2026-01-28 23:00",
+          "event": "外事部門が情報収集開始",
+          "type": "investigation"
+        },
+        {
+          "time": "2026-01-29 00:30",
+          "event": "生体スキャナーで記憶喰らいを検出",
+          "type": "discovery"
+        },
+        {
+          "time": "2026-01-29 02:15",
+          "event": "M-010-κ 記憶固定装置配布完了",
+          "type": "action"
+        },
+        {
+          "time": "2026-01-29 03:45",
+          "event": "実体の捕獲成功",
+          "type": "success"
+        },
+        {
+          "time": "2026-01-29 04:30",
+          "event": "市民の記憶一部復旧、事案収束",
+          "type": "completion"
+        }
+      ],
+      "modules": ["M-010-κ", "M-016-π", "M-006-ζ"],
+      "casualties": 0,
+      "civilianEvacuation": 0,
+      "reports": [
+        {
+          "time": "2026-01-29 01:00",
+          "author": "機関員 K-089-054",
+          "content": "被害者は直近24時間の記憶を失っている模様。精神層からの侵入と推測。"
+        },
+        {
+          "time": "2026-01-29 03:50",
+          "author": "機関員 K-121-077",
+          "content": "捕獲成功。実体は研究施設へ移送。被害者の記憶は徐々に回復傾向。"
+        }
+      ],
+      "notes": "記憶喰らいは研究目的で保管中。今後の対策として記憶固定装置の配備を検討。",
+      "securityLevel": 3
+    },
+    {
+      "id": "MISSION-2026-003",
+      "title": "新宿空間裂目緊急対応",
+      "status": "active",
+      "priority": "critical",
+      "location": "東京都新宿区西新宿",
+      "coordinates": "35.6896°N, 139.6920°E",
+      "startDate": "2026-02-15 14:20",
+      "endDate": null,
+      "assignedDivisions": ["収束部門 第1班", "収束部門 第3班", "支援部門"],
+      "entity": "E-010 (空間裂目) 拡大中",
+      "gsi": 15.8,
+      "description": "新宿高層ビル街に空間裂目が出現。周辺建造物が次元に吸い込まれ始めている。",
+      "timeline": [
+        {
+          "time": "2026-02-15 14:20",
+          "event": "空間裂目出現、自動警報",
+          "type": "alert"
+        },
+        {
+          "time": "2026-02-15 14:35",
+          "event": "全部門緊急出動",
+          "type": "deployment"
+        },
+        {
+          "time": "2026-02-15 15:00",
+          "event": "半径500m避難指示",
+          "type": "evacuation"
+        },
+        {
+          "time": "2026-02-15 15:30",
+          "event": "M-001-α、M-002-β 同時展開",
+          "type": "action"
+        },
+        {
+          "time": "2026-02-15 16:00",
+          "event": "裂目の拡大は停止したが収束せず",
+          "type": "ongoing"
+        }
+      ],
+      "modules": ["M-001-α", "M-002-β", "M-018-σ", "M-008-θ"],
+      "casualties": 2,
+      "civilianEvacuation": 2000,
+      "reports": [
+        {
+          "time": "2026-02-15 15:45",
+          "author": "機関員 K-007-192",
+          "content": "裂目は安定化しましたが、完全な封鎖には至っていません。追加のモジュールが必要です。"
+        },
+        {
+          "time": "2026-02-15 16:30",
+          "author": "指揮官 K-001-005",
+          "content": "本部に増援要請。このままでは48時間以内に再拡大の恐れ。市民避難は継続。"
+        }
+      ],
+      "notes": "過去最大級の空間裂目。原因調査中。次元境界の異常な弱化が確認されている。",
+      "securityLevel": 4
+    },
+    {
+      "id": "MISSION-2026-004",
+      "title": "横浜港不根密輸摘発作戦",
+      "status": "completed",
+      "priority": "medium",
+      "location": "神奈川県横浜市 横浜港",
+      "coordinates": "35.4437°N, 139.6380°E",
+      "startDate": "2026-02-10 01:00",
+      "endDate": "2026-02-10 06:45",
+      "assignedDivisions": ["外事部門", "港湾部門"],
+      "entity": "E-016 (不根の密輸業者) 5名",
+      "gsi": 6.2,
+      "description": "情報提供により不根の密輸業者が違法な残滓を取引する現場を急襲。",
+      "timeline": [
+        {
+          "time": "2026-02-10 01:00",
+          "event": "作戦開始、港湾部門が次元ゲート封鎖",
+          "type": "deployment"
+        },
+        {
+          "time": "2026-02-10 02:30",
+          "event": "密輸業者5名を発見、交戦開始",
+          "type": "combat"
+        },
+        {
+          "time": "2026-02-10 03:15",
+          "event": "3名拘束、2名逃走",
+          "type": "partial-success"
+        },
+        {
+          "time": "2026-02-10 04:00",
+          "event": "逃走した2名を追跡",
+          "type": "pursuit"
+        },
+        {
+          "time": "2026-02-10 06:00",
+          "event": "残り2名も拘束成功",
+          "type": "success"
+        },
+        {
+          "time": "2026-02-10 06:45",
+          "event": "違法残滓押収、作戦完了",
+          "type": "completion"
+        }
+      ],
+      "modules": ["M-002-β", "M-012-μ", "M-011-λ"],
+      "casualties": 0,
+      "civilianEvacuation": 0,
+      "reports": [
+        {
+          "time": "2026-02-10 03:30",
+          "author": "機関員 K-156-041",
+          "content": "密輸品は高純度残滓約50kg。闇市場では相当な価格で取引されていたと思われます。"
+        },
+        {
+          "time": "2026-02-10 06:50",
+          "author": "外事部門長",
+          "content": "全員拘束成功。取調べにより密輸ルートの一部が判明。継続捜査を実施します。"
+        }
+      ],
+      "notes": "不根犯罪組織の実態解明に向けて重要な一歩。今後も警戒が必要。",
+      "securityLevel": 3
+    },
+    {
+      "id": "MISSION-2026-005",
+      "title": "秋葉原影泳ぎ駆除作戦",
+      "status": "completed",
+      "priority": "low",
+      "location": "東京都千代田区秋葉原",
+      "coordinates": "35.7022°N, 139.7745°E",
+      "startDate": "2026-02-12 20:00",
+      "endDate": "2026-02-13 02:30",
+      "assignedDivisions": ["収束部門 第3班"],
+      "entity": "E-007 (影泳ぎ) 複数体",
+      "gsi": 4.3,
+      "description": "夜間の秋葉原で影泳ぎによる被害報告が相次ぎ、駆除作戦を実施。",
+      "timeline": [
+        {
+          "time": "2026-02-12 20:00",
+          "event": "夜間パトロール開始",
+          "type": "deployment"
+        },
+        {
+          "time": "2026-02-12 21:30",
+          "event": "影泳ぎ7体を発見",
+          "type": "discovery"
+        },
+        {
+          "time": "2026-02-12 22:00",
+          "event": "強力照明装置で影を消去、5体駆除",
+          "type": "action"
+        },
+        {
+          "time": "2026-02-13 00:15",
+          "event": "残り2体を追跡",
+          "type": "pursuit"
+        },
+        {
+          "time": "2026-02-13 02:00",
+          "event": "全個体駆除完了",
+          "type": "success"
+        },
+        {
+          "time": "2026-02-13 02:30",
+          "event": "作戦終了、警戒継続",
+          "type": "completion"
+        }
+      ],
+      "modules": ["強力照明装置（非モジュール）", "M-016-π"],
+      "casualties": 0,
+      "civilianEvacuation": 0,
+      "reports": [
+        {
+          "time": "2026-02-12 22:30",
+          "author": "機関員 K-198-073",
+          "content": "影泳ぎは予想より小型。照明による駆除が有効でした。"
+        },
+        {
+          "time": "2026-02-13 02:35",
+          "author": "機関員 K-212-089",
+          "content": "駆除完了。次元境界の異常は検出されず。単発的な侵入と判断します。"
+        }
+      ],
+      "notes": "比較的簡単な作戦。新人訓練の良い機会となった。",
+      "securityLevel": 1
+    }
+  ],
+  "personnel": [
+    {
+      "id": "K-001-005",
+      "name": "佐藤 健一",
+      "rank": "指揮官",
+      "division": "収束部門",
+      "level": 5,
+      "specialization": "次元収束戦術",
+      "yearsOfService": 12,
+      "missionsCompleted": 287,
+      "clearanceLevel": 5,
+      "notes": "収束部門の最高責任者。数々の危機的事案を指揮してきた実績を持つ。"
+    },
+    {
+      "id": "K-007-192",
+      "name": "田中 美咲",
+      "rank": "上級機関員",
+      "division": "収束部門 第1班",
+      "level": 4,
+      "specialization": "空間安定化",
+      "yearsOfService": 8,
+      "missionsCompleted": 156,
+      "clearanceLevel": 4,
+      "notes": "空間安定化フィールドの扱いに長けている。冷静な判断力が評価されている。"
+    },
+    {
+      "id": "K-042-118",
+      "name": "鈴木 大輔",
+      "rank": "機関員",
+      "division": "収束部門 第1班",
+      "level": 3,
+      "specialization": "実体無力化",
+      "yearsOfService": 5,
+      "missionsCompleted": 89,
+      "clearanceLevel": 3,
+      "notes": "実体無力化パルスの使用経験が豊富。危険を顧みない勇敢さを持つ。"
+    },
+    {
+      "id": "K-015-203",
+      "name": "山田 拓也",
+      "rank": "機関員",
+      "division": "支援部門",
+      "level": 3,
+      "specialization": "技術支援",
+      "yearsOfService": 6,
+      "missionsCompleted": 134,
+      "clearanceLevel": 3,
+      "notes": "現場での技術的問題解決に優れる。モジュールの応急修理が得意。"
+    },
+    {
+      "id": "K-089-054",
+      "name": "高橋 恵理",
+      "rank": "上級機関員",
+      "division": "外事部門",
+      "level": 4,
+      "specialization": "情報収集・分析",
+      "yearsOfService": 9,
+      "missionsCompleted": 201,
+      "clearanceLevel": 4,
+      "notes": "不根との交渉に長けている。言語能力が高く、次元間外交の中心人物。"
+    },
+    {
+      "id": "K-121-077",
+      "name": "伊藤 翔太",
+      "rank": "機関員",
+      "division": "収束部門 第2班",
+      "level": 3,
+      "specialization": "実体捕獲",
+      "yearsOfService": 4,
+      "missionsCompleted": 67,
+      "clearanceLevel": 3,
+      "notes": "実体の捕獲・拘束技術に優れる。記憶喰らい事案で功績。"
+    },
+    {
+      "id": "K-156-041",
+      "name": "渡辺 亮介",
+      "rank": "機関員",
+      "division": "外事部門",
+      "level": 3,
+      "specialization": "犯罪捜査",
+      "yearsOfService": 7,
+      "missionsCompleted": 143,
+      "clearanceLevel": 3,
+      "notes": "不根犯罪組織の捜査を専門とする。密輸ルート解明に貢献。"
+    },
+    {
+      "id": "K-198-073",
+      "name": "中村 優子",
+      "rank": "機関員",
+      "division": "収束部門 第3班",
+      "level": 2,
+      "specialization": "標準収束作戦",
+      "yearsOfService": 3,
+      "missionsCompleted": 42,
+      "clearanceLevel": 2,
+      "notes": "入職3年目の有望株。基本的な収束技術を確実に実行できる。"
+    },
+    {
+      "id": "K-212-089",
+      "name": "小林 健太郎",
+      "rank": "機関員",
+      "division": "収束部門 第3班",
+      "level": 2,
+      "specialization": "実体識別",
+      "yearsOfService": 2,
+      "missionsCompleted": 28,
+      "clearanceLevel": 2,
+      "notes": "生体スキャナーの扱いに習熟。実体の正確な識別が可能。"
+    },
+    {
+      "id": "K-234-112",
+      "name": "加藤 麻衣",
+      "rank": "上級機関員",
+      "division": "工作部門",
+      "level": 4,
+      "specialization": "モジュール開発",
+      "yearsOfService": 10,
+      "missionsCompleted": 0,
+      "clearanceLevel": 4,
+      "notes": "現場に出ることは稀だが、多くのモジュール開発に携わる天才エンジニア。"
+    }
+  ],
+  "divisions": [
+    {
+      "id": "div-001",
+      "name": "収束部門",
+      "description": "海蝕現象の収束と実体の無力化を担当する最前線部隊。",
+      "personnel": 156,
+      "specializations": ["次元収束", "実体無力化", "緊急対応"],
+      "equipment": ["M-001-α", "M-002-β", "M-003-γ", "M-008-θ", "M-013-ν"]
+    },
+    {
+      "id": "div-002",
+      "name": "港湾部門",
+      "description": "次元間ゲートの管理と正規の次元移動を監督する部門。",
+      "personnel": 89,
+      "specializations": ["ゲート管理", "次元航行", "座標固定"],
+      "equipment": ["M-012-μ", "M-011-λ", "次元航行船"]
+    },
+    {
+      "id": "div-003",
+      "name": "工作部門",
+      "description": "収束モジュールの開発・製造・保守を行う技術部門。",
+      "personnel": 134,
+      "specializations": ["モジュール開発", "技術革新", "装備保守"],
+      "equipment": ["全モジュールの開発権限", "研究施設", "製造設備"]
+    },
+    {
+      "id": "div-004",
+      "name": "外事部門",
+      "description": "不根との外交、情報収集、一般市民への隠蔽工作を担当。",
+      "personnel": 102,
+      "specializations": ["外交交渉", "情報工作", "記憶操作"],
+      "equipment": ["M-006-ζ", "M-010-κ", "M-020-υ"]
+    },
+    {
+      "id": "div-005",
+      "name": "支援部門",
+      "description": "現場への後方支援、医療、補給を担当する部門。",
+      "personnel": 178,
+      "specializations": ["医療支援", "補給管理", "通信維持"],
+      "equipment": ["M-008-θ", "M-011-λ", "M-009-ι", "医療設備"]
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc-001",
+      "name": "東京本部",
+      "type": "headquarters",
+      "coordinates": "35.6762°N, 139.6503°E",
+      "description": "機関の中央本部。地下15階まで続く巨大施設。",
+      "facilities": ["指揮室", "研究所", "訓練場", "医療施設", "収容施設"],
+      "securityLevel": 5
+    },
+    {
+      "id": "loc-002",
+      "name": "横浜港次元ゲート",
+      "type": "dimensional-gate",
+      "coordinates": "35.4437°N, 139.6380°E",
+      "description": "階宙次元への主要な出入口の一つ。常時監視体制。",
+      "facilities": ["ゲート施設", "検問所", "倉庫"],
+      "securityLevel": 4
+    },
+    {
+      "id": "loc-003",
+      "name": "新宿監視ステーション",
+      "type": "monitoring-station",
+      "coordinates": "35.6896°N, 139.6920°E",
+      "description": "東京都心部の次元異常を監視する前線基地。",
+      "facilities": ["監視室", "緊急対応設備", "小規模医療室"],
+      "securityLevel": 3
+    },
+    {
+      "id": "loc-004",
+      "name": "富士研究施設",
+      "type": "research-facility",
+      "coordinates": "35.3606°N, 138.7274°E",
+      "description": "機密レベルの高い研究を行う隔離施設。",
+      "facilities": ["高度研究室", "実体収容房", "実験場"],
+      "securityLevel": 5
+    }
+  ]
+}
