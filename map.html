@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>海蝕現象マップ - 海蝕機関</title>
+  <link rel="icon" type="image/png" href="./images/favicon.png">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/sidebar.css">
+  <link rel="stylesheet" href="./css/mobile.css">
+  <link rel="stylesheet" href="./css/loading.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <style>
+    /* Full-height no-scroll layout for map page */
+    html, body { height: 100%; overflow: hidden; }
+    .main-content { display: flex; flex-direction: column; height: 100vh; overflow: hidden; padding: 0 !important; }
+
+    /* Top bar */
+    .map-topbar {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.6rem 1.25rem;
+      background: rgba(6,13,26,0.95);
+      border-bottom: 1px solid rgba(0,255,255,0.12);
+      flex-shrink: 0;
+      backdrop-filter: blur(10px);
+      z-index: 50;
+      flex-wrap: wrap;
+    }
+    .map-topbar-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: white; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .topbar-accent { color: var(--destructive); }
+    .map-legend {
+      display: flex; gap: 1.1rem; align-items: center;
+      flex-wrap: wrap; margin-left: auto;
+    }
+    .legend-row {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; color: var(--muted-foreground);
+      white-space: nowrap;
+    }
+    .leg-line { width: 20px; height: 3px; border-radius: 1px; flex-shrink: 0; }
+    .leg-poly { width: 12px; height: 8px; border-radius: 1px; flex-shrink: 0; }
+    .topbar-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; color: var(--muted-foreground);
+      white-space: nowrap;
+    }
+
+    /* Map + panel row */
+    .map-section {
+      flex: 1; display: flex; overflow: hidden; position: relative;
+    }
+
+    #geo-map {
+      flex: 1; position: relative;
+      transition: width 0.4s cubic-bezier(.4,0,.2,1);
+      background: #060d1a;
+    }
+
+    /* Floating badges on map */
+    .map-badge {
+      position: absolute; z-index: 600; pointer-events: none;
+      background: rgba(6,13,26,0.92);
+      border: 1px solid rgba(0,255,255,0.2);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.63rem;
+      backdrop-filter: blur(6px);
+      padding: 4px 10px;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .badge-tl { top: 10px; left: 10px; color: var(--primary); }
+    .badge-bl { bottom: 30px; left: 10px; color: var(--muted-foreground); }
+    .badge-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: pulse 2s infinite; }
+
+    /* Right Panel */
+    #detail-panel {
+      width: 0; flex-shrink: 0;
+      background: rgba(6,13,26,0.97);
+      border-left: 1px solid rgba(0,255,255,0.12);
+      overflow: hidden;
+      transition: width 0.4s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column;
+    }
+    #detail-panel.open { width: 320px; }
+
+    .panel-inner {
+      width: 320px; height: 100%;
+      overflow-y: auto; padding: 1.1rem;
+    }
+    .panel-inner::-webkit-scrollbar { width: 4px; }
+    .panel-inner::-webkit-scrollbar-thumb { background: rgba(0,255,255,0.2); border-radius: 2px; }
+
+    .ph { /* panel header */
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 0.9rem; gap: 0.5rem;
+    }
+    .ph-pref {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; color: var(--primary);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 0.3rem;
+    }
+    .ph-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem; font-weight: 700; color: white; line-height: 1.2;
+    }
+    .ph-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; color: var(--muted-foreground); margin-top: 0.25rem;
+    }
+    .ph-close {
+      width: 26px; height: 26px; flex-shrink: 0;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted-foreground); cursor: pointer;
+      display: grid; place-items: center; font-size: 13px;
+      transition: all 0.2s; border-radius: 2px;
+    }
+    .ph-close:hover {
+      background: rgba(255,0,60,0.12);
+      border-color: var(--destructive);
+      color: var(--destructive);
+    }
+
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 0.9rem; }
+    .stat-c {
+      background: rgba(0,255,255,0.03);
+      border: 1px solid rgba(0,255,255,0.1);
+      padding: 0.65rem; border-radius: 2px;
+    }
+    .sc-label { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.2rem; }
+    .sc-val { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 600; color: var(--primary); }
+    .sc-unit { font-size: 0.6rem; color: var(--muted-foreground); }
+
+    .detail-btn {
+      width: 100%; padding: 0.7rem;
+      background: rgba(0,255,255,0.06);
+      border: 1px solid rgba(0,255,255,0.4);
+      color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      cursor: pointer; margin-bottom: 1.1rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+      transition: all 0.2s; border-radius: 2px;
+    }
+    .detail-btn:hover { background: rgba(0,255,255,0.15); box-shadow: 0 0 18px rgba(0,255,255,0.15); }
+
+    .psec { /* panel section */
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted-foreground);
+      margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.45rem;
+    }
+    .psec::after { content:''; flex:1; height:1px; background: rgba(255,255,255,0.06); }
+
+    .feat-list { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 0.9rem; }
+    .feat-item {
+      display: flex; align-items: center; gap: 0.45rem;
+      padding: 0.45rem 0.6rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 2px; font-size: 0.75rem;
+    }
+    .fi-dot { width: 6px; height: 6px; border-radius: 1px; flex-shrink: 0; }
+    .fi-name { flex: 1; color: rgba(255,255,255,0.78); }
+    .fi-type { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: var(--muted-foreground); }
+    .feat-empty { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--muted-foreground); padding: 0.35rem 0 0.7rem; }
+
+    /* Modal */
+    #detail-modal {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.82); place-items: center;
+      backdrop-filter: blur(6px);
+    }
+    #detail-modal.open { display: grid; }
+    .modal-box {
+      background: var(--card);
+      border: 1px solid rgba(0,255,255,0.28);
+      width: min(95vw, 1020px);
+      height: min(90vh, 740px);
+      display: flex; flex-direction: column; overflow: hidden;
+      box-shadow: 0 0 60px rgba(0,255,255,0.08), 0 40px 80px rgba(0,0,0,0.7);
+      animation: modalIn 0.32s cubic-bezier(.4,0,.2,1);
+      position: relative;
+    }
+    @keyframes modalIn {
+      from { opacity:0; transform: scale(0.93) translateY(22px); }
+      to   { opacity:1; transform: scale(1) translateY(0); }
+    }
+    .modal-box::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background: linear-gradient(90deg,transparent,var(--primary) 40%,transparent);
+    }
+    .modal-header {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.85rem 1.1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      flex-shrink: 0;
+    }
+    .modal-sig {
+      width: 7px; height: 7px; background: var(--primary);
+      border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0;
+    }
+    .modal-ttl {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em; color: white;
+    }
+    .modal-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted-foreground); margin-left: auto; }
+    .modal-cls {
+      width: 30px; height: 30px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted-foreground); cursor: pointer;
+      display: grid; place-items: center; font-size: 15px;
+      border-radius: 2px; flex-shrink: 0; transition: all 0.2s;
+    }
+    .modal-cls:hover { background: rgba(255,0,60,0.12); border-color: var(--destructive); color: var(--destructive); }
+    #modal-map { flex:1; background: #060d1a; }
+    .modal-footer {
+      display: flex; gap: 1.2rem; padding: 0.5rem 1.1rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      flex-shrink: 0; background: rgba(0,0,0,0.25); flex-wrap: wrap;
+    }
+
+    /* Ripple Marker */
+    .ripple-wrap { width: 16px; height: 16px; position: relative; }
+    .rp-core {
+      position: absolute; top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      width: 9px; height: 9px;
+      background: var(--primary); border-radius: 50%; z-index: 3;
+      box-shadow: 0 0 7px var(--primary);
+    }
+    .rp-ring {
+      position: absolute; top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      border: 1.5px solid var(--primary);
+      border-radius: 50%;
+      width: 9px; height: 9px;
+      animation: rpOut 2.4s ease-out infinite; opacity: 0;
+    }
+    .rp-ring:nth-child(2) { animation-delay: 0s; }
+    .rp-ring:nth-child(3) { animation-delay: 0.8s; }
+    .rp-ring:nth-child(4) { animation-delay: 1.6s; }
+    @keyframes rpOut {
+      0%   { width:9px;  height:9px;  opacity: 0.9; }
+      100% { width:54px; height:54px; opacity: 0; }
+    }
+    .ripple-wrap.active .rp-core { background: var(--destructive); box-shadow: 0 0 10px var(--destructive); }
+    .ripple-wrap.active .rp-ring { border-color: var(--destructive); }
+
+    /* Leaflet overrides */
+    .leaflet-container { background: #060d1a !important; }
+    .leaflet-tooltip {
+      background: rgba(6,13,26,0.96) !important;
+      border: 1px solid rgba(0,255,255,0.3) !important;
+      color: white !important;
+      border-radius: 2px !important;
+      font-family: 'Space Grotesk', sans-serif !important;
+      font-size: 12px !important; font-weight: 600 !important;
+      padding: 4px 9px !important;
+      box-shadow: 0 0 12px rgba(0,255,255,0.12) !important;
+    }
+    .leaflet-tooltip::before { display: none !important; }
+    .leaflet-control-zoom {
+      border: 1px solid rgba(0,255,255,0.18) !important;
+      border-radius: 2px !important; overflow: hidden;
+    }
+    .leaflet-control-zoom a {
+      background: rgba(6,13,26,0.92) !important;
+      color: var(--primary) !important;
+      border-bottom: 1px solid rgba(0,255,255,0.12) !important;
+    }
+    .leaflet-control-zoom a:hover { background: rgba(0,255,255,0.1) !important; }
+    .leaflet-bar { box-shadow: none !important; border: none !important; }
+    .leaflet-control-attribution { display: none !important; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar"></aside>
+    <button class="mobile-menu-toggle">
+      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+    <div class="mobile-menu-overlay"></div>
+
+    <main class="main-content scanline">
+      <!-- Top bar -->
+      <div class="map-topbar">
+        <div class="map-topbar-title">
+          <span class="topbar-accent">▶</span> 海蝕現象マップ
+        </div>
+        <div class="map-legend">
+          <div class="legend-row"><div class="leg-line" style="background:#ff7733"></div>国道</div>
+          <div class="legend-row"><div class="leg-line" style="background:#99aacc"></div>県道</div>
+          <div class="legend-row"><div class="leg-line" style="background:#29b6f6"></div>主要河川</div>
+          <div class="legend-row"><div class="leg-line" style="background:#81d4fa"></div>支流</div>
+          <div class="legend-row"><div class="leg-poly" style="background:rgba(0,255,255,0.1);border:1px solid rgba(0,255,255,0.45);"></div>市町村</div>
+        </div>
+        <div class="topbar-time" id="live-time">LIVE · --:--:--</div>
+      </div>
+
+      <!-- Map Section -->
+      <div class="map-section">
+        <div id="geo-map">
+          <div class="map-badge badge-tl">
+            <div class="badge-dot"></div>
+            GEODATA · ONLINE
+          </div>
+          <div class="map-badge badge-bl" id="muni-badge">18 MUNICIPALITIES · 大分県</div>
+        </div>
+
+        <!-- Right Panel -->
+        <div id="detail-panel">
+          <div class="panel-inner">
+            <div class="ph">
+              <div>
+                <div class="ph-pref" id="p-pref"></div>
+                <div class="ph-name" id="p-name">—</div>
+                <div class="ph-code" id="p-code"></div>
+              </div>
+              <button class="ph-close" onclick="GeoMap.closePanel()">✕</button>
+            </div>
+
+            <div class="stat-grid" id="p-stats"></div>
+
+            <button class="detail-btn" onclick="GeoMap.openModal()">
+              <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+              詳細地図を表示
+            </button>
+
+            <div class="psec">道路</div>
+            <div class="feat-list" id="p-roads"></div>
+
+            <div class="psec">河川</div>
+            <div class="feat-list" id="p-rivers"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Detail Modal -->
+  <div id="detail-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-sig"></div>
+        <div class="modal-ttl" id="modal-title">—</div>
+        <div class="modal-sub" id="modal-sub"></div>
+        <button class="modal-cls" onclick="GeoMap.closeModal()">✕</button>
+      </div>
+      <div id="modal-map"></div>
+      <div class="modal-footer">
+        <div class="legend-row"><div class="leg-line" style="background:#ff7733;width:20px;height:3px;border-radius:1px;"></div>国道</div>
+        <div class="legend-row"><div class="leg-line" style="background:#99aacc;width:20px;height:3px;border-radius:1px;"></div>県道・その他道路</div>
+        <div class="legend-row"><div class="leg-line" style="background:#29b6f6;width:20px;height:3px;border-radius:1px;"></div>主要河川</div>
+        <div class="legend-row"><div class="leg-line" style="background:#81d4fa;width:20px;height:3px;border-radius:1px;"></div>支流・小河川</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/loading.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/modal.js"></script>
+  <script src="./js/progress.js"></script>
+  <script src="./js/level-messages.js"></script>
+  <script src="./js/daily-login.js"></script>
+  <script src="./js/geo-data.js"></script>
+  <script src="./js/map-geo.js"></script>
+</body>
+</html>
