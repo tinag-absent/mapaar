@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>場所詳細 - 海蝕機関</title>
+  <link rel="icon" type="image/png" href="./images/favicon.png">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/sidebar.css">
+  <link rel="stylesheet" href="./css/mobile.css">
+  <link rel="stylesheet" href="./css/loading.css">
+  <style>
+    .back-button {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem; background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1); color: var(--foreground);
+      text-decoration: none; font-family: 'JetBrains Mono', monospace;
+      transition: all 0.3s; margin-bottom: 2rem;
+    }
+    .back-button:hover { border-color: rgb(16,185,129); background: rgba(16,185,129,0.08); }
+
+    /* Header */
+    .location-header {
+      position: relative; overflow: hidden;
+      padding: 2rem; margin-bottom: 2rem;
+      background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(0,0,0,0.5));
+      border: 2px solid rgb(16,185,129);
+    }
+    .location-header-inner { position: relative; z-index: 1; }
+
+    /* Grid art (background) */
+    .location-header::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(16,185,129,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(16,185,129,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .loc-type-badge {
+      display: inline-block; padding: 0.25rem 0.85rem; margin-bottom: 0.75rem;
+      font-size: 0.7rem; font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase; border: 1px solid rgb(16,185,129);
+      color: rgb(16,185,129); background: rgba(16,185,129,0.1);
+      letter-spacing: 0.08em;
+    }
+    .loc-name {
+      font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; color: white; margin-bottom: 0.5rem;
+    }
+    .loc-id { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--muted-foreground); }
+    .loc-coords {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.875rem;
+      color: rgb(16,185,129); margin-top: 0.5rem;
+    }
+
+    /* Stat chips */
+    .stat-chips { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .stat-chip { padding: 0.65rem 1.2rem; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
+    .stat-chip-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted-foreground); text-transform: uppercase; margin-bottom: 0.25rem; }
+    .stat-chip-value { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 700; color: rgb(16,185,129); }
+
+    /* Security level indicator */
+    .sec-bar { display: flex; gap: 3px; align-items: center; margin-top: 0.3rem; }
+    .sec-pip { width: 12px; height: 12px; border: 1px solid rgba(255,255,255,0.2); }
+    .sec-pip.active { background: rgb(16,185,129); border-color: rgb(16,185,129); box-shadow: 0 0 6px rgba(16,185,129,0.5); }
+
+    /* Tabs */
+    .tab-nav { display: flex; margin-bottom: 0; border-bottom: 2px solid rgba(255,255,255,0.1); }
+    .tab-btn {
+      padding: 0.875rem 1.75rem; background: none; border: none;
+      border-bottom: 3px solid transparent; color: var(--muted-foreground);
+      cursor: pointer; font-family: 'JetBrains Mono', monospace;
+      font-weight: 600; text-transform: uppercase; font-size: 0.8rem;
+      transition: all 0.25s; margin-bottom: -2px;
+    }
+    .tab-btn:hover, .tab-btn.active { color: rgb(16,185,129); border-bottom-color: rgb(16,185,129); }
+    .tab-content { display: none; padding-top: 2rem; }
+    .tab-content.active { display: block; animation: fadeIn 0.25s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    /* Content */
+    .detail-block {
+      background: rgba(26,39,56,0.4); border: 1px solid rgba(255,255,255,0.08);
+      padding: 1.75rem; margin-bottom: 1.5rem;
+    }
+    .block-title {
+      font-family: 'Space Grotesk', sans-serif; font-size: 1rem;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: rgb(16,185,129); margin-bottom: 1.25rem;
+      padding-bottom: 0.6rem; border-bottom: 1px solid rgba(16,185,129,0.2);
+    }
+    .detail-text { color: var(--foreground); line-height: 1.9; font-size: 0.9375rem; }
+
+    /* Facilities */
+    .facility-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .facility-tag {
+      padding: 0.5rem 1rem; border: 1px solid rgba(16,185,129,0.3);
+      background: rgba(16,185,129,0.06); color: white;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .facility-tag::before { content: '◆'; color: rgb(16,185,129); font-size: 0.5rem; }
+
+    /* Map visual */
+    .coord-map {
+      background: rgba(0,0,0,0.5); border: 1px solid rgba(16,185,129,0.2);
+      padding: 1.5rem; margin-top: 1.25rem; position: relative; overflow: hidden;
+      min-height: 120px; display: flex; align-items: center; gap: 2rem;
+    }
+    .coord-map::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(16,185,129,0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .coord-pin {
+      position: relative; z-index: 1;
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: rgba(16,185,129,0.15); border: 2px solid rgb(16,185,129);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 20px rgba(16,185,129,0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{box-shadow: 0 0 20px rgba(16,185,129,0.3);} 50%{box-shadow: 0 0 35px rgba(16,185,129,0.6);} }
+    .coord-text { position: relative; z-index: 1; }
+    .coord-main { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: rgb(16,185,129); font-weight: 700; }
+    .coord-sub  { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted-foreground); margin-top: 0.25rem; }
+
+    /* Related missions */
+    .mission-ref-card {
+      background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08);
+      padding: 1rem 1.25rem; margin-bottom: 0.75rem;
+      transition: all 0.2s; display: flex;
+      align-items: center; gap: 1rem; text-decoration: none;
+    }
+    .mission-ref-card:hover { border-color: rgb(16,185,129); background: rgba(16,185,129,0.04); }
+    .mission-ref-id { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted-foreground); white-space: nowrap; }
+    .mission-ref-title { color: white; font-size: 0.9rem; font-weight: 600; flex: 1; }
+    .mission-ref-badges { display: flex; gap: 0.4rem; flex-shrink: 0; }
+    .mini-badge {
+      padding: 0.15rem 0.5rem; font-size: 0.6rem;
+      font-family: 'JetBrains Mono', monospace; text-transform: uppercase; border: 1px solid;
+    }
+    .mb-active    { border-color: var(--destructive); color: var(--destructive); }
+    .mb-completed { border-color: rgb(16,185,129); color: rgb(16,185,129); }
+    .mb-monitoring{ border-color: rgb(245,158,11); color: rgb(245,158,11); }
+    .mb-failed    { border-color: rgb(107,114,128); color: rgb(107,114,128); }
+    .mb-critical  { border-color: var(--destructive); color: var(--destructive); }
+    .mb-warning   { border-color: rgb(245,158,11); color: rgb(245,158,11); }
+    .mb-safe      { border-color: var(--primary); color: var(--primary); }
+    .no-related {
+      text-align: center; padding: 2.5rem;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+      color: var(--muted-foreground); border: 1px dashed rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar"></aside>
+    <button class="mobile-menu-toggle">
+      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+    <div class="mobile-menu-overlay"></div>
+
+    <main class="main-content scanline">
+      <div class="container">
+        <div class="space-y-12 animate-fadeIn">
+          <a href="./map.html" class="back-button">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            マップに戻る
+          </a>
+          <div id="locationDetail"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="./js/loading.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/modal.js"></script>
+  <script src="./js/progress.js"></script>
+  <script src="./js/level-messages.js"></script>
+  <script src="./js/daily-login.js"></script>
+  <script src="./js/mission-data.js"></script>
+  <script src="./js/catalog-data.js"></script>
+  <script src="./js/view-history.js"></script>
+  <script src="./js/bookmark.js"></script>
+  <script>
+  (async function() {
+    if (!ProgressSystem.checkPageAccess('map.html')) {
+      ModalSystem.warning('このページにアクセスするには LEVEL 1 が必要です。', 'ACCESS DENIED')
+        .then(() => { window.location.href = './dashboard.html'; });
+      return;
+    }
+    await Promise.all([
+      window.CatalogData.whenReady(),
+      window.MissionData.whenReady()
+    ]);
+
+    const id = new URLSearchParams(window.location.search).get('id');
+    const loc = window.CatalogData.locations.find(l => l.id === id);
+
+    if (!loc) {
+      ModalSystem.error('指定された場所が見つかりません。', 'NOT FOUND')
+        .then(() => { window.location.href = './map.html'; });
+      return;
+    }
+
+    document.title = `${loc.name} - 海蝕機関`;
+    ViewHistory.record('location', loc.id, loc.name);
+
+
+    const LOC_TYPE_LABEL = {
+      'headquarters': '中央本部',
+      'dimensional-gate': '次元ゲート',
+      'monitoring-station': '監視ステーション',
+      'research-facility': '研究施設'
+    };
+    const STATUS_LABEL = { active:'対応中', monitoring:'監視中', completed:'収束済み', failed:'失敗' };
+    const PRIORITY_LABEL = { critical:'重大', warning:'警戒', safe:'観察' };
+
+    // Find related missions by location name or coordinates proximity
+    const relatedMissions = window.MissionData.missions.filter(m =>
+      m.location && (m.location.includes(loc.name.slice(0,4)) ||
+      (m.coordinates && loc.coordinates &&
+       parseFloat(m.coordinates) && Math.abs(parseFloat(m.coordinates) - parseFloat(loc.coordinates)) < 0.1))
+    );
+
+    // Security level pips
+    const maxSec = 5;
+    const pips = Array.from({length: maxSec}, (_, i) =>
+      `<div class="sec-pip ${i < loc.securityLevel ? 'active' : ''}"></div>`
+    ).join('');
+
+    document.getElementById('locationDetail').innerHTML = `
+      <div class="location-header">
+        <div class="location-header-inner">
+          <div class="loc-type-badge">${LOC_TYPE_LABEL[loc.type] || loc.type}</div>
+          <div class="loc-name">${loc.name}</div>
+          <div class="loc-id">${loc.id}</div>
+          <div class="loc-coords">📡 ${loc.coordinates}</div>
+          <div class="stat-chips">
+            <div class="stat-chip">
+              <div class="stat-chip-label">セキュリティレベル</div>
+              <div class="stat-chip-value">LEVEL ${loc.securityLevel}</div>
+              <div class="sec-bar">${pips}</div>
+            </div>
+            <div class="stat-chip">
+              <div class="stat-chip-label">施設数</div>
+              <div class="stat-chip-value">${(loc.facilities||[]).length}</div>
+            </div>
+            <div class="stat-chip">
+              <div class="stat-chip-label">関連案件</div>
+              <div class="stat-chip-value">${relatedMissions.length}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="overview">概要</button>
+        <button class="tab-btn" data-tab="facilities">施設一覧</button>
+        <button class="tab-btn" data-tab="missions">関連案件 <span style="font-size:0.65rem;opacity:0.7;">(${relatedMissions.length})</span></button>
+      </div>
+
+      <div class="tab-content active" id="overview">
+        <div class="detail-block">
+          <div class="block-title">施設概要</div>
+          <div class="detail-text">${loc.description}</div>
+        </div>
+        <div class="coord-map">
+          <div class="coord-pin">
+            <svg width="22" height="22" fill="none" stroke="rgb(16,185,129)" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <div class="coord-text">
+            <div class="coord-main">${loc.coordinates}</div>
+            <div class="coord-sub">次元座標: PRIME-${loc.id.toUpperCase()}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="facilities">
+        <div class="detail-block">
+          <div class="block-title">配備施設</div>
+          <div class="facility-grid">
+            ${(loc.facilities||[]).map(f => `
+
+    // ブックマークボタンを挿入
+    (function() {
+      var btn = BookmarkSystem.render('location', loc.id, loc.name);
+      var titleEl = document.querySelector('.loc-name');
+      if (titleEl && titleEl.parentElement) {
+        var wrap = document.createElement('div');
+        wrap.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:0.5rem;';
+        titleEl.parentElement.insertBefore(wrap, titleEl);
+        wrap.appendChild(titleEl);
+        wrap.appendChild(btn);
+      }
+    })();<div class="facility-tag">${f}</div>`).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="missions">
+        ${relatedMissions.length === 0
+          ? `<div class="no-related">記録された関連案件はありません</div>`
+          : relatedMissions.map(m => `
+            <a class="mission-ref-card" href="./mission-detail.html?id=${m.id}">
+              <div style="flex:1;">
+                <div class="mission-ref-id">${m.id}</div>
+                <div class="mission-ref-title">${m.title}</div>
+              </div>
+              <div class="mission-ref-badges">
+                <span class="mini-badge mb-${m.status}">${STATUS_LABEL[m.status]||m.status}</span>
+                <span class="mini-badge mb-${m.priority}">${PRIORITY_LABEL[m.priority]||m.priority}</span>
+              </div>
+            </a>`).join('')
+        }
+      </div>
+    `;
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById(this.dataset.tab).classList.add('active');
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
