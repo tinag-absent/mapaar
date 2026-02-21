@@ -629,3 +629,37 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--primary);
   box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.1);
 }
+
+/* ── Detail page bookmark button ───────────────────────────────────────── */
+.detail-bm-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.5rem 1.1rem;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.45);
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.detail-bm-btn:hover {
+  border-color: rgb(245,158,11);
+  color: rgb(245,158,11);
+  background: rgba(245,158,11,0.08);
+}
+.detail-bm-btn.saved {
+  border-color: rgb(245,158,11);
+  color: rgb(245,158,11);
+  background: rgba(245,158,11,0.12);
+}
+.detail-bm-btn .bm-star-char {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.15s;
+}
+.detail-bm-btn:hover .bm-star-char,
+.detail-bm-btn.saved .bm-star-char {
+  transform: scale(1.2);
+}

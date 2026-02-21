@@ -6,7 +6,7 @@
   // Check if user has access to this page
   if (!ProgressSystem.checkPageAccess('entities.html')) {
     ModalSystem.warning(
-      'このページにアクセスするには LEVEL 3 が必要です。<br><br>より多くの経験値を獲得してレベルアップしてください。',
+      'このページにアクセスするには LEVEL 2 が必要です。<br><br>より多くの経験値を獲得してレベルアップしてください。',
       'ACCESS DENIED'
     ).then(() => {
       window.location.href = './dashboard.html';
@@ -48,7 +48,7 @@
 
     catalog.innerHTML = filtered.map(entity => {
       return `
-        <div class="catalog-item" onclick="showEntityDetail('${entity.id}')">
+        <div class="catalog-item" onclick="window.location.href='entity-detail.html?id=${entity.id}'">
           <div class="catalog-item-header">
             <div class="entity-icon">
               <svg width="32" height="32" fill="none" stroke="white" viewBox="0 0 24 24">
@@ -89,7 +89,7 @@
 
           <div class="catalog-item-footer">
             <div style="font-size: 0.7rem; font-family: 'JetBrains Mono', monospace; color: var(--destructive); text-transform: uppercase;">
-              ⚠ クリックして詳細を表示
+              → クリックして詳細ページへ
             </div>
           </div>
         </div>

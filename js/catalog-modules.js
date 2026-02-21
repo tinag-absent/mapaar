@@ -48,7 +48,7 @@
 
     catalog.innerHTML = filtered.map(module => {
       return `
-        <div class="catalog-item" onclick="showModuleDetail('${module.id}')">
+        <div class="catalog-item" onclick="window.location.href='module-detail.html?id=${module.id}'">
           <div class="catalog-item-header">
             <div class="module-icon">
               <svg width="32" height="32" fill="none" stroke="white" viewBox="0 0 24 24">

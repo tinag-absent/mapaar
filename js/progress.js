@@ -16,11 +16,11 @@ const ProgressSystem = (function() {
   // Pages that unlock at each level
   const LEVEL_UNLOCKS = {
     0: ['index.html', 'login.html', 'dashboard.html'],
-    1: ['divisions.html', 'chat.html', 'map.html'],
-    2: ['division-convergence.html', 'division-support.html', 'division-engineering.html', 'division-foreign.html', 'division-port.html'],
+    1: ['divisions.html', 'chat.html', 'map.html', 'location-detail.html', 'history.html'],
+    2: ['division-convergence.html', 'division-support.html', 'division-engineering.html', 'division-foreign.html', 'division-port.html', 'entity-detail.html', 'module-detail.html', 'entities.html', 'modules.html'],
     3: ['phenomenon.html'],
-    4: ['missions.html'],
-    5: ['classified.html']
+    4: ['missions.html', 'search.html', 'mission-detail.html'],
+    5: ['classified.html', 'personnel-detail.html']
   };
 
   // Activities that give XP

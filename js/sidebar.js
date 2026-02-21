@@ -84,11 +84,17 @@ class SidebarComponent {
           </svg>
           <span>各部門情報</span>
         </a>
-        <a href="${base}missions.html" class="nav-item ${this.isActive('missions.html') ? 'active' : ''}" data-page="missions">
+        <a href="${base}search.html" class="nav-item ${this.isActive('search.html') ? 'active' : ''}" data-page="search">
           <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/>
           </svg>
-          <span>収束案件データベース</span>
+          <span>統合データベース検索</span>
+        </a>
+        <a href="${base}history.html" class="nav-item ${this.isActive('history.html') ? 'active' : ''}" data-page="history">
+          <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>アクセス履歴</span>
         </a>
         <a href="${base}map.html" class="nav-item ${this.isActive('map.html') ? 'active' : ''}" data-page="map">
           <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">

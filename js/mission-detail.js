@@ -1,9 +1,9 @@
 // Mission Detail Page Script
-(function() {
+(async function() {
   // Check access
-  if (!ProgressSystem.checkPageAccess('missions.html')) {
+  if (!ProgressSystem.checkPageAccess('mission-detail.html')) {
     ModalSystem.warning(
-      'このページにアクセスするには LEVEL 2 が必要です。',
+      'このページにアクセスするには LEVEL 4 が必要です。',
       'ACCESS DENIED'
     ).then(() => {
       window.location.href = './dashboard.html';
@@ -22,6 +22,7 @@
     return;
   }
 
+  await window.MissionData.whenReady();
   const mission = window.MissionData.getMissionById(missionId);
 
   if (!mission) {
@@ -40,8 +41,22 @@
     return;
   }
 
+  ViewHistory.record('mission', mission.id, mission.title);
   // Render mission detail
   renderMissionDetail(mission);
+
+  // ブックマークボタンを挿入（render後にDOMが存在する）
+  (function() {
+    var btn = BookmarkSystem.render('mission', mission.id, mission.title);
+    var titleEl = document.querySelector('.detail-title');
+    if (titleEl && titleEl.parentElement) {
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;';
+      titleEl.parentElement.insertBefore(wrap, titleEl);
+      wrap.appendChild(titleEl);
+      wrap.appendChild(btn);
+    }
+  })();
 
   function renderAccessDenied(requiredLevel) {
     document.getElementById('missionDetail').innerHTML = `

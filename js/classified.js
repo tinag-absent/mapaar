@@ -1,5 +1,5 @@
 // Classified Page Script
-(function() {
+(async function() {
   // Check access
   if (!ProgressSystem.checkPageAccess('classified.html')) {
     renderAccessDenied();
@@ -9,7 +9,8 @@
   let currentFilter = 'all';
   let currentQuery = '';
 
-  function updateStats() {
+  async function updateStats() {
+    await window.PersonnelDatabase.whenReady();
     const stats = window.PersonnelDatabase.getStatistics();
     const container = document.getElementById('statsGrid');
     

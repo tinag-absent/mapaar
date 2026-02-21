@@ -8,305 +8,219 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/sidebar.css">
   <link rel="stylesheet" href="./css/mobile.css">
+  <link rel="stylesheet" href="./css/catalog.css">
   <link rel="stylesheet" href="./css/loading.css">
   <style>
-    .search-bar {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
+    .stat-card {
+      background: rgba(0,229,229,0.05);
+      border: 1px solid rgba(0,229,229,0.2);
+      padding: 1.25rem;
+      text-align: center;
     }
-
-    .search-input {
-      flex: 1;
-      padding: 0.75rem 1rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--foreground);
-      font-family: 'JetBrains Mono', monospace;
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
     }
-
-    .search-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.1);
-    }
-
-    .search-btn {
-      padding: 0.75rem 2rem;
-      background: var(--primary);
-      color: var(--primary-foreground);
-      border: none;
-      cursor: pointer;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
-      transition: all 0.3s;
-    }
-
-    .search-btn:hover {
-      opacity: 0.8;
-    }
-
-    .filter-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-      padding: 1.5rem;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .filter-label {
+    .stat-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
-      color: var(--primary);
+      color: var(--muted-foreground);
       text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.25rem;
     }
-
-    .filter-select {
-      padding: 0.5rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--foreground);
-      font-family: 'Inter', sans-serif;
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
-
-    .mission-card {
-      background: linear-gradient(135deg, rgba(26, 39, 56, 0.4), rgba(15, 23, 42, 0.4));
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1.5rem;
+    .search-bar {
+      display: flex;
+      gap: 0.5rem;
       margin-bottom: 1rem;
+    }
+    .search-bar input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(0,229,229,0.3);
+      color: white;
+      padding: 0.625rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+    }
+    .search-bar input:focus { outline: none; border-color: var(--primary); }
+    .filter-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    .filter-row select {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(0,229,229,0.3);
+      color: white;
+      padding: 0.5rem 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .filter-row select option { background: #0a0a14; }
+    .result-info {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--muted-foreground);
+      margin-left: auto;
+    }
+    .mission-list { display: flex; flex-direction: column; gap: 1rem; }
+    .mission-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 1.5rem;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: border-color 0.2s, background 0.2s;
     }
-
-    .mission-card:hover {
-      border-color: var(--primary);
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-      transform: translateX(5px);
-    }
-
-    .mission-card.active {
-      border-left: 4px solid var(--destructive);
-    }
-
-    .mission-card.completed {
-      border-left: 4px solid rgb(16, 185, 129);
-    }
-
+    .mission-card:hover { border-color: var(--primary); background: rgba(0,229,229,0.05); }
+    .mission-card.active { border-left: 3px solid var(--destructive); }
+    .mission-card.monitoring { border-left: 3px solid rgb(245,158,11); }
+    .mission-card.completed { border-left: 3px solid rgb(16,185,129); }
     .mission-header {
       display: flex;
       justify-content: space-between;
-      align-items: start;
-      margin-bottom: 1rem;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+      gap: 1rem;
     }
-
     .mission-title {
-      font-size: 1.25rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
       font-weight: 600;
       color: white;
-      margin-bottom: 0.25rem;
     }
-
     .mission-code {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.875rem;
-      color: var(--muted-foreground);
+      font-size: 0.75rem;
+      color: var(--primary);
+      margin-top: 0.25rem;
     }
-
-    .mission-badges {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
+    .mission-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
     .status-badge {
-      padding: 0.25rem 0.75rem;
-      font-size: 0.7rem;
       font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
       border: 1px solid;
     }
-
-    .status-active {
-      background: rgba(239, 68, 68, 0.1);
-      border-color: var(--destructive);
-      color: var(--destructive);
-    }
-
-    .status-completed {
-      background: rgba(16, 185, 129, 0.1);
-      border-color: rgb(16, 185, 129);
-      color: rgb(16, 185, 129);
-    }
-
-    .severity-critical {
-      background: rgba(239, 68, 68, 0.1);
-      border-color: var(--destructive);
-      color: var(--destructive);
-    }
-
-    .severity-warning {
-      background: rgba(245, 158, 11, 0.1);
-      border-color: rgb(245, 158, 11);
-      color: rgb(245, 158, 11);
-    }
-
-    .severity-safe {
-      background: rgba(0, 255, 255, 0.1);
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-
+    .status-active { color: var(--destructive); border-color: var(--destructive); background: rgba(239,68,68,0.1); }
+    .status-monitoring { color: rgb(245,158,11); border-color: rgb(245,158,11); background: rgba(245,158,11,0.1); }
+    .status-completed { color: rgb(16,185,129); border-color: rgb(16,185,129); background: rgba(16,185,129,0.1); }
+    .severity-critical { color: var(--destructive); border-color: var(--destructive); background: rgba(239,68,68,0.1); }
+    .severity-warning { color: rgb(245,158,11); border-color: rgb(245,158,11); background: rgba(245,158,11,0.1); }
+    .severity-safe { color: rgb(16,185,129); border-color: rgb(16,185,129); background: rgba(16,185,129,0.1); }
     .mission-info {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 0.75rem;
     }
-
-    .info-item {
-      font-size: 0.875rem;
-    }
-
     .info-label {
-      color: var(--muted-foreground);
-      margin-bottom: 0.25rem;
-      font-size: 0.75rem;
-    }
-
-    .info-value {
-      color: white;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .stats-summary {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .stat-card {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 2rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       color: var(--muted-foreground);
       text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.2rem;
+    }
+    .info-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.85);
     }
   </style>
 </head>
 <body>
   <div class="app-layout">
-    <!-- Sidebar (same as other pages) -->
-    <aside class="sidebar">
-      <!-- Sidebar content will be loaded by sidebar.js -->
-    </aside>
-
+    <aside class="sidebar"></aside>
     <button class="mobile-menu-toggle">
       <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
     </button>
     <div class="mobile-menu-overlay"></div>
-
     <main class="main-content scanline">
       <div class="container">
         <div class="space-y-12 animate-fadeIn">
-          <div class="space-y-4" style="border-left: 4px solid var(--primary); padding-left: 1rem;">
-            <h1 style="font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: white; text-transform: uppercase;">
+
+          <!-- ヘッダー -->
+          <div style="border-left: 4px solid var(--destructive); padding-left: 1rem;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--primary); text-transform:uppercase; letter-spacing:0.2em; margin-bottom:0.5rem;">
+              LEVEL 4 CLEARANCE REQUIRED
+            </div>
+            <h1 style="font-size:2.5rem; font-family:'Space Grotesk',sans-serif; font-weight:700; color:white; text-transform:uppercase;">
               収束案件データベース
             </h1>
-            <p class="font-mono text-muted" style="font-size: 0.875rem;">
-              MISSION ARCHIVE - 機密度: LEVEL 2
+            <p style="color:var(--muted-foreground); font-family:'JetBrains Mono',monospace; font-size:0.875rem; margin-top:0.5rem;">
+              CONVERGENCE MISSION DATABASE — 機密区分: 最高機密
             </p>
           </div>
 
-          <!-- Statistics Summary -->
-          <div class="stats-summary" id="statsSummary">
-            <!-- Will be populated by JavaScript -->
+          <!-- 統計 -->
+          <div class="stats-grid" id="statsSummary">
+            <div class="stat-card"><div class="stat-number">—</div><div class="stat-label">総案件数</div></div>
           </div>
 
-          <!-- Search Bar -->
-          <div class="search-bar">
-            <input type="text" id="searchInput" class="search-input" placeholder="案件名、コード、場所、実体で検索...">
-            <button class="search-btn" id="searchBtn">検索</button>
-          </div>
-
-          <!-- Filters -->
-          <div class="filter-section">
-            <div class="filter-group">
-              <label class="filter-label">ステータス</label>
-              <select id="statusFilter" class="filter-select">
-                <option value="all">全て</option>
-                <option value="active">対応中</option>
-                <option value="completed">収束済み</option>
-                <option value="failed">失敗</option>
-              </select>
+          <!-- 検索・フィルター -->
+          <div>
+            <div class="search-bar">
+              <input type="text" id="searchInput" placeholder="案件名・場所・IDで検索...">
+              <button class="btn-primary" id="searchBtn" style="padding:0.625rem 1.25rem; font-family:'JetBrains Mono',monospace; font-size:0.875rem; background:var(--primary); color:black; border:none; cursor:pointer;">
+                SEARCH
+              </button>
             </div>
-            <div class="filter-group">
-              <label class="filter-label">重要度</label>
-              <select id="severityFilter" class="filter-select">
-                <option value="all">全て</option>
+            <div class="filter-row">
+              <select id="statusFilter">
+                <option value="all">全ステータス</option>
+                <option value="active">対応中</option>
+                <option value="monitoring">監視中</option>
+                <option value="completed">収束済み</option>
+              </select>
+              <select id="severityFilter">
+                <option value="all">全重要度</option>
                 <option value="critical">重大</option>
                 <option value="warning">警戒</option>
                 <option value="safe">観察</option>
               </select>
-            </div>
-            <div class="filter-group">
-              <label class="filter-label">並び順</label>
-              <select id="sortFilter" class="filter-select">
-                <option value="date-desc">新しい順</option>
-                <option value="date-asc">古い順</option>
+              <select id="sortFilter">
+                <option value="date-desc">日付（新しい順）</option>
+                <option value="date-asc">日付（古い順）</option>
                 <option value="severity">重要度順</option>
               </select>
+              <div class="result-info"><span id="resultCount">0</span> 件</div>
             </div>
           </div>
 
-          <!-- Results Count -->
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 1rem;">
-            <span id="resultCount">0</span> 件の案件が見つかりました
-          </div>
-
-          <!-- Mission List -->
-          <div id="missionList">
-            <!-- Will be populated by JavaScript -->
+          <!-- 案件リスト -->
+          <div class="mission-list" id="missionList">
+            <div style="text-align:center; padding:4rem; color:var(--muted-foreground); font-family:'JetBrains Mono',monospace; font-size:0.875rem;">
+              データを読み込み中...
+            </div>
           </div>
 
         </div>
       </div>
     </main>
   </div>
+  <script src="./js/data-bundle.js"></script>
 
   <script src="./js/loading.js"></script>
   <script src="./js/sidebar.js"></script>
   <script src="./js/main.js"></script>
   <script src="./js/modal.js"></script>
   <script src="./js/progress.js"></script>
-  <script src="./js/level-messages.js"></script>
-  <script src="./js/daily-login.js"></script>
   <script src="./js/mission-data.js"></script>
   <script src="./js/missions-search.js"></script>
 </body>

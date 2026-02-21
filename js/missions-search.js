@@ -1,5 +1,5 @@
 // Missions Search Page Script
-(function() {
+(async function() {
   // Check if user has access to this page
   if (!ProgressSystem.checkPageAccess('missions.html')) {
     ModalSystem.warning(
@@ -19,7 +19,8 @@
   };
 
   // Update statistics
-  function updateStats() {
+  async function updateStats() {
+    await window.MissionData.whenReady();
     const stats = window.MissionData.getStatistics();
     const container = document.getElementById('statsSummary');
     
@@ -48,7 +49,8 @@
   }
 
   // Render mission list
-  function renderMissions() {
+  async function renderMissions() {
+    await window.MissionData.whenReady();
     const missions = window.MissionData.searchMissions(currentFilters);
     
     // Sort

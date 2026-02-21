@@ -256,6 +256,7 @@
     <div style="font-weight: 600; color: white; margin-bottom: 0.25rem;" id="toastSuccessTitle">SUCCESS</div>
     <div style="font-size: 0.875rem; color: rgba(255, 255, 255, 0.8);" id="toastSuccessMessage">Operation completed successfully.</div>
   </div>
+  <script src="./js/data-bundle.js"></script>
 
   <script src="./js/sidebar.js"></script>
   <script src="./js/main.js"></script>
@@ -264,6 +265,25 @@
     // LocalStorage keys
     const USERS_KEY = 'kaishoku_users';
     const CURRENT_USER_KEY = 'kaishoku_current_user';
+
+    // Developer account initialization
+    (function initDevAccount() {
+      const DEV_ID = 'K-000-DEV';
+      const devAccount = {
+        id: DEV_ID,
+        name: '開発者',
+        password: 'dev_admin_2026',
+        division: '開発部門',
+        level: 5,
+        registeredAt: '2026-01-01T00:00:00.000Z'
+      };
+      const stored = localStorage.getItem(USERS_KEY);
+      const users = stored ? JSON.parse(stored) : [];
+      if (!users.find(u => u.id === DEV_ID)) {
+        users.unshift(devAccount);
+        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+      }
+    })();
 
     // Utility functions
     function getUsers() {

@@ -1,7 +1,12 @@
 // Personnel Detail Page Script
-(function() {
-  if (!ProgressSystem.checkPageAccess('classified.html')) {
-    window.location.href = './dashboard.html';
+(async function() {
+  if (!ProgressSystem.checkPageAccess('personnel-detail.html')) {
+    ModalSystem.warning(
+      'このページにアクセスするには LEVEL 5 が必要です。',
+      'ACCESS DENIED'
+    ).then(() => {
+      window.location.href = './dashboard.html';
+    });
     return;
   }
 
@@ -15,6 +20,7 @@
     return;
   }
 
+  await window.PersonnelDatabase.whenReady();
   const personnel = window.PersonnelDatabase.getPersonnelById(personnelId);
 
   if (!personnel) {
@@ -24,7 +30,21 @@
     return;
   }
 
+  ViewHistory.record('personnel', personnel.id, personnel.name);
   renderPersonnelDetail(personnel);
+
+  // ブックマークボタンを挿入（render後にDOMが存在する）
+  (function() {
+    var btn = BookmarkSystem.render('personnel', personnel.id, personnel.name);
+    var titleEl = document.querySelector('.personnel-header h1');
+    if (titleEl && titleEl.parentElement) {
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;';
+      titleEl.parentElement.insertBefore(wrap, titleEl);
+      wrap.appendChild(titleEl);
+      wrap.appendChild(btn);
+    }
+  })();
 
   function renderPersonnelDetail(p) {
     const container = document.getElementById('personnelDetail');
